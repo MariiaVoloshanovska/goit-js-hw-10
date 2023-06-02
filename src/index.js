@@ -1,8 +1,10 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
+
 const breedSelect = document.querySelector('.breed-select');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
+
 // Функція для заповнення селекту порід
 function populateBreeds(breeds) {
   breeds.forEach((breed) => {
@@ -31,8 +33,10 @@ breedSelect.addEventListener('change', (event) => {
     fetchCatByBreed(selectedBreedId)
       .then((cat) => {
         displayCatInfo(cat);
-        loader.style.display = 'none';
+        setTimeout(() => {
+          loader.style.display = 'none';
         catInfo.style.display = 'block';
+        }, 1000);
       })
       .catch(() => {
         error.style.display = 'block';
@@ -52,3 +56,5 @@ fetchBreeds()
     error.style.display = 'block';
     loader.style.display = 'none';
   });
+
+   
