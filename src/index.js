@@ -31,29 +31,62 @@ fetchBreeds
     Notiflix.Report.Failure('Error', 'An error occurred while loading the cat list.');
   });
 
-  // Опрацювання події зміни випадаючого списку
-refs.breedSelect.addEventListener('change', event => {
+
+// Оголошення функції обробника події зміни випадаючого списку
+const newFunct = event => {
   // Виклик функції fetchCatByBreed з обраним значенням з випадаючого списку
   fetchCatByBreed(refs.breedSelect.value)
     .then(response => {
       const cats = response.map(item => item.breeds[0]); // Отримання першої породи кожного кота з отриманих даних
+
+      // Генерація HTML-коду для кожного кота в масиві cats
+      const catElements = cats.map(cat => `
+        <div class='wrapper'> 
+          <img width=500 src="${response[0].url}" alt="${cat.name}">
+          <h2>${cat.name}</h2>
+          <p class="cat-description">${cat.description}</p>
+          <p class="cat-description">Temperament: ${cat.temperament}</p>
+        </div>
+      `);
+
+      // Оновлення HTML-вмісту елементу з класом "cat-info" (refs.catInfo)
+      refs.catInfo.innerHTML = catElements.join('');
+
+      // Виведення повідомлення про помилку за допомогою бібліотеки Notiflix
+      Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
+    });
+};
+// Додавання обробника події "change" до елементу випадаючого списку
+refs.breedSelect.addEventListener('change', newFunct);
+;
+
+
+
+//   // Опрацювання події зміни випадаючого списку
+// refs.breedSelect.addEventListener('change', event => {
+//   // Виклик функції fetchCatByBreed з обраним значенням з випадаючого списку
+//   fetchCatByBreed(refs.breedSelect.value)
+//     .then(response => {
+//       const cats = response.map(item => item.breeds[0]); // Отримання першої породи кожного кота з отриманих даних
   
-// Генерування HTML-коду для кожного кота в масиві cats + // Створення HTML-коду для кожного кота
-  const catElements = cats.map(cat => `
-    <div class='wrapper'> 
-      <img width=500 src="${response[0].url}" alt="${cat.name}">
-      <h2>${cat.name}</h2>
-      <p class="cat-description">${cat.description}</p>
-      <p class="cat-description">Temperament: ${cat.temperament}</p>
-    </div>
-  `);
+// // Генерування HTML-коду для кожного кота в масиві cats + // Створення HTML-коду для кожного кота
+//   const catElements = cats.map(cat => `
+//     <div class='wrapper'> 
+//       <img width=500 src="${response[0].url}" alt="${cat.name}">
+//       <h2>${cat.name}</h2>
+//       <p class="cat-description">${cat.description}</p>
+//       <p class="cat-description">Temperament: ${cat.temperament}</p>
+//     </div>
+//   `);
   
-// Оновлення HTML-вмісту елементу з класом "cat-info" (refs.catInfo)
-    refs.catInfo.innerHTML = catElements.join('');
-    Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
-  });
-});
+// // Оновлення HTML-вмісту елементу з класом "cat-info" (refs.catInfo)
+//     refs.catInfo.innerHTML = catElements.join('');
+//     Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
+//   });
+// });
   
+
+
 
 
 
