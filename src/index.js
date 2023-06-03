@@ -18,10 +18,10 @@ fetchBreeds
     refs.breedSelect.innerHTML = catListName;
 
     // Затримка перед приховуванням завантажувача та випадаючого списку
-    setTimeout(() => {
-      refs.loader.classList.add('is-hidden');
-      refs.breedSelect.classList.remove('is-hidden');
-    }, 700);
+    // setTimeout(() => {
+    //   refs.loader.classList.add('is-hidden');
+    //   refs.breedSelect.classList.remove('is-hidden');
+    // }, 700);
   })
   .catch(() => {
     // Обробка помилки отримання списку котів
@@ -50,7 +50,12 @@ const newFunct = event => {
       `);
 
       // Оновлення HTML-вмісту елементу з класом "cat-info" (refs.catInfo)
-      refs.catInfo.innerHTML = catElements.join('');
+  refs.catInfo.innerHTML = ''; 
+  refs.loader.classList.remove('is-hidden')
+  setTimeout(() => {
+  refs.loader.classList.add('is-hidden')
+  refs.catInfo.innerHTML = catElements.join(''); 
+}, 2000);
 
       // Виведення повідомлення про помилку за допомогою бібліотеки Notiflix
       Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
