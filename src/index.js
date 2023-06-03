@@ -9,19 +9,31 @@ const refs = {
   catInfo: document.querySelector('.cat-info'),
 };
 
-// Отримання списку всіх котів і створення випадаючого списку
 fetchBreeds
   .then(response => {
-    // Створення рядків HTML для випадаючого списку
     const catListName = response.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
-    // Встановлення HTML-вмісту випадаючого списку
     refs.breedSelect.innerHTML = catListName;
+    fetchCatByBreed(refs.breedSelect.value)
+    .then(response => {
+      const cats = response.map(item => item.breeds[0]);
+      const catElements = cats.map(cat => `
+        <div class='wrapper'> 
+          <img class="cats-img" width=500 src="${response[0].url}" alt="${cat.name}">
+          <h2>${cat.name}</h2>
+          <p class="cat-description">${cat.description}</p>
+          <p class="cat-description">Temperament: ${cat.temperament}</p>
+        </div>
+      `);
 
-    // Затримка перед приховуванням завантажувача та випадаючого списку
-    // setTimeout(() => {
-    //   refs.loader.classList.add('is-hidden');
-    //   refs.breedSelect.classList.remove('is-hidden');
-    // }, 700);
+  refs.catInfo.innerHTML = ''; 
+  refs.loader.classList.remove('is-hidden')
+  setTimeout(() => {
+  refs.loader.classList.add('is-hidden')
+  refs.catInfo.innerHTML = catElements.join(''); 
+}, 600);
+      Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
+    });
+    
   })
   .catch(() => {
     // Обробка помилки отримання списку котів
@@ -30,7 +42,6 @@ fetchBreeds
     refs.error.classList.add('is-hidden');
     Notiflix.Report.Failure('Error', 'An error occurred while loading the cat list.');
   });
-
 
 // Оголошення функції обробника події зміни випадаючого списку
 const newFunct = event => {
