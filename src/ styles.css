@@ -44,6 +44,10 @@ body {
   color: #666;
 }
 
+.cats-img {
+  border-radius: 10px;
+}
+
 
 .loader {
   width: 48px;

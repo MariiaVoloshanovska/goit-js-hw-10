@@ -42,7 +42,7 @@ const newFunct = event => {
       // Генерація HTML-коду для кожного кота в масиві cats
       const catElements = cats.map(cat => `
         <div class='wrapper'> 
-          <img width=500 src="${response[0].url}" alt="${cat.name}">
+          <img class="cats-img" width=500 src="${response[0].url}" alt="${cat.name}">
           <h2>${cat.name}</h2>
           <p class="cat-description">${cat.description}</p>
           <p class="cat-description">Temperament: ${cat.temperament}</p>
