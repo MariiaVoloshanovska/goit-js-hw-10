@@ -55,7 +55,7 @@ const newFunct = event => {
   setTimeout(() => {
   refs.loader.classList.add('is-hidden')
   refs.catInfo.innerHTML = catElements.join(''); 
-}, 2000);
+}, 600);
 
       // Виведення повідомлення про помилку за допомогою бібліотеки Notiflix
       Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
