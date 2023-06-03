@@ -43,14 +43,10 @@ fetchBreeds
     Notiflix.Report.Failure('Error', 'An error occurred while loading the cat list.');
   });
 
-// Оголошення функції обробника події зміни випадаючого списку
 const newFunct = event => {
-  // Виклик функції fetchCatByBreed з обраним значенням з випадаючого списку
   fetchCatByBreed(refs.breedSelect.value)
     .then(response => {
-      const cats = response.map(item => item.breeds[0]); // Отримання першої породи кожного кота з отриманих даних
-
-      // Генерація HTML-коду для кожного кота в масиві cats
+      const cats = response.map(item => item.breeds[0]); 
       const catElements = cats.map(cat => `
         <div class='wrapper'> 
           <img class="cats-img" width=500 src="${response[0].url}" alt="${cat.name}">
@@ -74,7 +70,7 @@ const newFunct = event => {
 };
 // Додавання обробника події "change" до елементу випадаючого списку
 refs.breedSelect.addEventListener('change', newFunct);
-;
+
 
 
 
