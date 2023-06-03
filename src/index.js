@@ -9,13 +9,19 @@ const refs = {
   catInfo: document.querySelector('.cat-info'),
 };
 
+// Отримання списку порід котів з використанням функції fetchBreeds
 fetchBreeds
   .then(response => {
     const catListName = response.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+     // Встановлення рядка з елементами <option> вмісту елемента breedSelect
     refs.breedSelect.innerHTML = catListName;
+
+    // Отримання даних про котів за вибраною породою з використанням функції fetchCatByBreed
     fetchCatByBreed(refs.breedSelect.value)
     .then(response => {
+      // Маппінг відповіді на масив об'єктів котів
       const cats = response.map(item => item.breeds[0]);
+     // Створення HTML-коду для кожного кота
       const catElements = cats.map(cat => `
         <div class='wrapper'> 
           <img class="cats-img" width=500 src="${response[0].url}" alt="${cat.name}">
@@ -25,8 +31,11 @@ fetchBreeds
         </div>
       `);
 
+  // Очищення HTML-вмісту елементу catInfo
   refs.catInfo.innerHTML = ''; 
-  refs.loader.classList.remove('is-hidden')
+  // Видалення класу is-hidden для показу завантажувача
+  refs.loader.classList.remove('is-hidden');
+  // Затримка на 600 мс перед оновленням вмісту catInfo і приховуванням завантажувача
   setTimeout(() => {
   refs.loader.classList.add('is-hidden')
   refs.catInfo.innerHTML = catElements.join(''); 
@@ -37,13 +46,18 @@ fetchBreeds
   })
   .catch(() => {
     // Обробка помилки отримання списку котів
+    // Приховання завантажувача
     refs.loader.classList.add('is-hidden');
+    // Видалення класу is-hidden для показу елемента breedSelect
     refs.breedSelect.classList.remove('is-hidden');
+    // Приховання елемента error
     refs.error.classList.add('is-hidden');
     Notiflix.Report.Failure('Error', 'An error occurred while loading the cat list.');
   });
 
+// Функція, яка викликається при зміні вибраної породи кота
 const newFunct = event => {
+  // Отримання даних про котів за вибраною породою з використанням функції fetchCatByBreed
   fetchCatByBreed(refs.breedSelect.value)
     .then(response => {
       const cats = response.map(item => item.breeds[0]); 
@@ -56,9 +70,11 @@ const newFunct = event => {
         </div>
       `);
 
-      // Оновлення HTML-вмісту елементу з класом "cat-info" (refs.catInfo)
+     // Очищення HTML-вмісту елементу catInfo (refs.catInfo)
   refs.catInfo.innerHTML = ''; 
+  // Видалення класу is-hidden для показу завантажувача
   refs.loader.classList.remove('is-hidden')
+  // Затримка на 600 мс перед оновленням вмісту catInfo і приховуванням завантажувача
   setTimeout(() => {
   refs.loader.classList.add('is-hidden')
   refs.catInfo.innerHTML = catElements.join(''); 
@@ -68,7 +84,7 @@ const newFunct = event => {
       Notiflix.Report.Failure('Error', 'An error occurred while retrieving the cat data.');
     });
 };
-// Додавання обробника події "change" до елементу випадаючого списку
+// Додавання обробника події "change" до елементу випадаючого списку breedSelect
 refs.breedSelect.addEventListener('change', newFunct);
 
 
