@@ -1,4 +1,4 @@
-/* styles.css */
+/* styles.css
 
 body {
     font-family: Arial, sans-serif;
@@ -23,6 +23,9 @@ body {
   }
   
   .cat-info img {
+
+
+
     max-width: 300px;
     margin-bottom: 10px;
   }
@@ -35,7 +38,16 @@ body {
   .description, .temperament {
     margin-bottom: 10px;
   }
-  
+   */
+
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+  }
 
   .loader {
     transform: rotateZ(45deg);
@@ -44,7 +56,7 @@ body {
     width: 480px;
     height: 480px;
     color: #000;
-    margin: auto;
+    margin-left: 30%;
    
   }
     .loader:before,
@@ -110,4 +122,42 @@ body {
     87% {
       box-shadow: .2em -.2em 0 0 currentcolor;
     }
+  }
+
+  .invisible{
+    display: none;
+  }
+
+  .breed-select{
+    margin-bottom: 20px;
+  }
+
+  .cat-info{
+  max-width: 500px;
+  }
+
+
+
+
+  @keyframes prixClipFix {
+    0% {
+      clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+    }
+    50% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+    }
+    75%,
+    100% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+    }
+  }
+  
+  .invisible {
+    display: none;
+  }
+  .breed-select {
+    margin-bottom: 40px;
+  }
+  .cat-info {
+    max-width: 500px;
   }
