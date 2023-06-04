@@ -10,7 +10,11 @@ const refs = {
 };
 
 // Отримання списку порід котів з використанням функції fetchBreeds
-fetchBreeds
+//За допомогою функції fetchBreeds отримується список порід котів. 
+//Після успішного отримання відповіді, дані перетворюються на 
+//рядок з елементами <option>, які встановлюються як вміст 
+//елемента breedSelect. У разі помилки отримання списку котів, виконується обробка помилки.
+fetchBreeds //Отримання списку порід котів:
   .then(response => {
     const catListName = response.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
      // Встановлення рядка з елементами <option> вмісту елемента breedSelect
@@ -44,8 +48,13 @@ fetchBreeds
     });
     
   })
-  .catch(() => {
-    // Обробка помилки отримання списку котів
+  .catch(() => {  // Обробка помилки отримання списку котів
+    //При зміні вибраної породи кота (за допомогою події change на елементі breedSelect), 
+    //виконується функція newFunct, яка викликає функцію fetchCatByBreed для 
+    //отримання даних про котів цієї породи. Після успішного отримання відповіді 
+    //з даними про котів, вони обробляються і відображаються на сторінці. 
+    //У разі помилки отримання даних про котів, виконується обробка помилки.
+
     // Приховання завантажувача
     refs.loader.classList.add('is-hidden');
     // Видалення класу is-hidden для показу елемента breedSelect
@@ -58,7 +67,7 @@ fetchBreeds
 // Функція, яка викликається при зміні вибраної породи кота
 const newFunct = event => {
   // Отримання даних про котів за вибраною породою з використанням функції fetchCatByBreed
-  fetchCatByBreed(refs.breedSelect.value)
+  fetchCatByBreed(refs.breedSelect.value) 
     .then(response => {
       const cats = response.map(item => item.breeds[0]); 
       const catElements = cats.map(cat => `
